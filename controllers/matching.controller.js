@@ -12,14 +12,8 @@ export const handleAddMatching = async (req, res, next) => {
       throw new InvalidInputError('userId가 올바르지 않습니다.');
     }
 
-    // 구조 분해 할당
     const { title, categoryId, place, status, description, assistedUserId } = req.body;
 
-    if (typeof categoryId === 'undefined') {
-      throw new InvalidInputError('categoryId가 전달되지 않았습니다.');
-    }
-
-    // Prisma로 넘길 데이터 준비
     const data = {
       title,
       categoryId,
