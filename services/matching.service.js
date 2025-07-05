@@ -8,7 +8,7 @@ export const addMatching = async (data) => {
       categoryId,
       place,
       description,
-      status,
+      status: 'pending',
       authorId,
       assistedUserId,
     },

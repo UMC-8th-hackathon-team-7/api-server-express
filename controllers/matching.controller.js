@@ -12,14 +12,13 @@ export const handleAddMatching = async (req, res, next) => {
       throw new InvalidInputError('userId가 올바르지 않습니다.');
     }
 
-    const { title, categoryId, place, status, description, assistedUserId } = req.body;
+    const { title, categoryId, place, description, assistedUserId } = req.body;
 
     const data = {
       title,
       categoryId,
       place,
       description,
-      status,
       authorId,
       assistedUserId: assistedUserId || authorId,
     };
