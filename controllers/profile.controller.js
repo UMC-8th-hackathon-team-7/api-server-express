@@ -1,5 +1,5 @@
 import { StatusCodes } from "http-status-codes";
-import { getUserProfile } from "../services/profile.sevice.js";
+import { getUserProfile, updateUser } from "../services/profile.sevice.js";
 
 // 내 프로필
 export const handleGetMyProfile = async (req, res, next) => {
@@ -24,4 +24,18 @@ export const handleGetUserProfile = async (req, res, next) => {
     } catch (error) {
         next(error);
     }
+};
+
+// 내 프로필 수정
+export const handleUpdateMyProfile = async (req, res, next) => {
+  try {
+    const userId = req?.user?.userId;
+    
+    const updated = await updateUser(userId, req.body);
+    const profile = await getUserProfile(userId);
+
+    res.status(StatusCodes.OK).success(profile);
+  } catch (error) {
+    next(error);
+  }
 };
