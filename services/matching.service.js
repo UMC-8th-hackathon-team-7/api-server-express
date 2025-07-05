@@ -81,8 +81,10 @@ export const addMatching = async (data) => {
 };
 
 export const listMatching = async (categoryId) => {
+  const whereClause = categoryId ? { categoryId: categoryId } : {};
+
   const list = await prisma.matching.findMany({
-    where: { categoryId: categoryId },
+    where: whereClause,
     select: {
       title: true,
       place: true,
