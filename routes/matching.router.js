@@ -4,6 +4,7 @@ import {
   getRelatedDisabledListController,
   handleAddMatching,
   handleDeleteMatching,
+  handleModifyStatus,
   handlelistMatching,
 } from '../controllers/matching.controller.js';
 import { authenticateAccessToken } from '../middleware/authenticate.jwt.js';
@@ -14,5 +15,6 @@ router.get('/connected-disabled-user', authenticateAccessToken, getRelatedDisabl
 router.post('/', authenticateAccessToken, handleAddMatching);
 router.get('/', authenticateAccessToken, handlelistMatching);
 router.delete('/:matchingId', authenticateAccessToken, handleDeleteMatching);
+router.patch('/:matchingId/status', authenticateAccessToken, handleModifyStatus);
 
 export default router;
