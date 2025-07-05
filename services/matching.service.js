@@ -1,5 +1,5 @@
 import prisma from '../prisma/db.js';
-import { NotExistsError } from "../utils/errors/errors.js";
+import { NotExistsError } from '../utils/errors/errors.js';
 
 export const getRelatedDisabledList = async (userId) => {
   /*
@@ -118,6 +118,7 @@ export const getAuthorAndAssistedUserIdForSocket = async (matchingId) => {
   };
 };
 
+
 function getAge(birthdate) {
   const today = new Date();
   const birth = new Date(birthdate);
@@ -148,7 +149,7 @@ export const getMatchingDetail = async (matchingId) => {
   });
 
   if (!matchingDetail) {
-    throw new NotExistsError("해당 글을 찾을 수 없습니다.");
+    throw new NotExistsError('해당 글을 찾을 수 없습니다.');
   }
 
   const author = matchingDetail.userMatchingAuthorIdToUser;
@@ -183,7 +184,7 @@ export const getMatchingDetail = async (matchingId) => {
     protector: protectorProfile,
     assistedUser: assistedUserProfile,
   };
-}
+};
 
 export const deleteMatching = async (matchingId) => {
   const matching = await prisma.matching.delete({
@@ -199,6 +200,20 @@ export const modifyStatus = async (matchingId, status) => {
     data: {
       status: status,
       updatedAt: new Date(),
+    },
+  });
+
+  return matching;
+};
+
+export const modifyMatching = async (data) => {
+  const matching = await prisma.matching.update({
+    where: { matchingId: data.matchingId },
+    data: {
+      title: data.title,
+      categoryId: data.categoryId,
+      description: data.description,
+      place: data.place,
     },
   });
 
