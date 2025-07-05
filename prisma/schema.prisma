@@ -38,6 +38,8 @@ model disabledProfile {
 
   @@index([disabledTypeId], map: "disabledProfileDisabledTypeDisabledTypeIdFk")
   @@index([assistantId], map: "disabledProfileUserUserIdFk2")
+
+  @@map("disabled_profile")
 }
 
 model disabledType {
@@ -47,6 +49,8 @@ model disabledType {
   createdAt        DateTime           @default(now()) @db.Timestamp(6) @map("created_at")
   updatedAt        DateTime           @default(now()) @db.Timestamp(6) @map("updated_at")
   disabledProfile  disabledProfile[]
+
+  @@map("disabled_type")
 }
 
 model matching {
@@ -75,6 +79,8 @@ model matchingCategory {
   createdAt    DateTime   @default(now()) @db.Timestamp(6) @map("created_at")
   updatedAt    DateTime   @default(now()) @db.Timestamp(6) @map("updated_at")
   matching     matching[]
+
+  @@map("matching_category")
 }
 
 model user {
@@ -98,6 +104,7 @@ model user {
 
 enum matchingStatus {
   pending
-  in_progress
+  rejected
+  accepted
   completed
 }
