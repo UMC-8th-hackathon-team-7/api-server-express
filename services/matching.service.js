@@ -16,3 +16,22 @@ export const addMatching = async (data) => {
 
   return matching;
 };
+
+export const listMatching = async (categoryId) => {
+  const list = await prisma.matching.findMany({
+    where: { categoryId: categoryId },
+    select: {
+      title: true,
+      place: true,
+      createdAt: true,
+      matchingCategory: {
+        select: {
+          categoryId: true,
+          name: true,
+        },
+      },
+    },
+  });
+
+  return list;
+};
