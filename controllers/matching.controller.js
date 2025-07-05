@@ -6,6 +6,7 @@ import {
   getRelatedDisabledList,
   listMatching,
   modifyStatus,
+  getMatchingDetail,
 } from '../services/matching.service.js';
 import { InvalidInputError } from '../utils/errors/errors.js';
 
@@ -83,6 +84,20 @@ export const handlelistMatching = async (req, res, next) => {
   } catch (error) {
     next(error);
   }
+};
+
+
+export const handleGetMatchingDetail = async (req, res, next) => {
+    try{
+        const matchingId = Number(req.params.matchingId)
+
+        const detail= await getMatchingDetail(matchingId);
+
+        res.status(StatusCodes.OK).success(detail);
+    } catch(error) {
+        next(error)
+    }
+    
 };
 
 // 도움 요청 삭제
