@@ -15,6 +15,21 @@ import { logError } from './error.logger.js';
 //   return value
 // }
 
+// function safeJsonValue(value) {
+//   if (Array.isArray(value)) {
+//     return value.map(safeJsonValue)
+//   }
+//   if (value && typeof value === 'object') {
+//     return Object.fromEntries(
+//       Object.entries(value).map(([k, v]) => [k, safeJsonValue(v)])
+//     )
+//   }
+//   if (typeof value === 'bigint') {
+//     return value.toString()
+//   }
+//   return value
+// }
+
 export const responseHandler = (req, res, next) => {
   res.success = (success) => res.json({ resultType: 'SUCCESS', error: null, success });
 
