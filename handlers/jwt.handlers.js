@@ -1,13 +1,14 @@
-import jwt from "jsonwebtoken";
-import config from "./config.js";
-import logger from "../logger/console.js";
+import jwt from 'jsonwebtoken';
+
+import logger from '../logger/console.js';
+import config from './config.js';
 
 const { JWT_SECRET } = config.SERVER;
 
 export const parseBearerFromHeader = (req, res, next) => {
   const authHeader = req.headers.authorization;
   if (authHeader) {
-    const token = authHeader.split(" ")[1];
+    const token = authHeader.split(' ')[1];
     req.token = token;
     console.info(`Parsed token: ${token}`);
   }

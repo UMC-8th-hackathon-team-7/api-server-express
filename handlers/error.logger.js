@@ -12,8 +12,8 @@ export const logError = (err) => {
     acc[key] = err[key];
     return acc;
   }, {});
-  console.error("통합 에러 로그", {
-    action: "handler:logError",
+  console.error('통합 에러 로그', {
+    action: 'handler:logError',
     errorDetails,
   });
 };

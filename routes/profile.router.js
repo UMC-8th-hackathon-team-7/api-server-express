@@ -4,7 +4,7 @@ import { authenticateAccessToken } from "../middleware/authenticate.jwt.js";
 
 const router = Router();
 
-router.get("/me", handleGetMyProfile);
+router.get("/me", authenticateAccessToken, handleGetMyProfile);
 
 
 export default router;

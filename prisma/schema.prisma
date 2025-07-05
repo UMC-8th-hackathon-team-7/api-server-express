@@ -80,7 +80,7 @@ model matchingCategory {
 model user {
   userId                                              Int             @id @default(autoincrement()) @map("user_id")
   profileImage                                        String?            @db.VarChar(1024) @map("profile_image")
-  phoneNumber                                         String             @db.VarChar(20) @map("phone_number")
+  phoneNumber                                         String             @unique @db.VarChar(20) @map("phone_number")
   password                                            String             @db.VarChar(50)
   isDisabled                                          Boolean            @map("is_disabled")
   name                                                String             @db.VarChar(50)
