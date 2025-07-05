@@ -1,8 +1,9 @@
 import prisma from "../prisma/db.js";
+import { NotExistsError } from "../utils/errors/errors.js";
 
-export const getMyProfile = async (userId) => {
+export const getUserProfile = async (userId) => {
   const profile = await prisma.user.findUnique({
-    where: { userId },
+    where: { userId : Number(userId) },
     include: {
       disabledProfileDisabledProfileUserIdToUser: {
         include: {
@@ -13,7 +14,7 @@ export const getMyProfile = async (userId) => {
   });
 
   if (!profile) {
-    throw new Error("사용자를 찾을 수 없습니다.");
+    throw new NotExistsError("사용자를 찾을 수 없습니다.");
   }
 
   // 비밀번호는 제거
