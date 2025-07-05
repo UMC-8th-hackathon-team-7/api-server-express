@@ -4,6 +4,7 @@ import {
   getRelatedDisabledListController,
   handleAddMatching,
   handleDeleteMatching,
+  handleModifyStatus,
   handlelistMatching,
   handleGetMatchingDetail,
 } from '../controllers/matching.controller.js';
@@ -17,5 +18,6 @@ router.post('/', authenticateAccessToken, handleAddMatching);
 router.get('/', authenticateAccessToken, handlelistMatching);
 router.get('/:matchingId', handleGetMatchingDetail);
 router.delete('/:matchingId', authenticateAccessToken, handleDeleteMatching);
+router.patch('/:matchingId/status', authenticateAccessToken, handleModifyStatus);
 
 export default router;

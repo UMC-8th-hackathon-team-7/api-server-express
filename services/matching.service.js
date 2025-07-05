@@ -174,3 +174,15 @@ export const deleteMatching = async (matchingId) => {
 
   return matching;
 };
+
+export const modifyStatus = async (matchingId, status) => {
+  const matching = await prisma.matching.update({
+    where: { matchingId: matchingId },
+    data: {
+      status: status,
+      updatedAt: new Date(),
+    },
+  });
+
+  return matching;
+};
