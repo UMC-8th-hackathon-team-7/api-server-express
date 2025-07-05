@@ -1,6 +1,6 @@
-import jwt from "jsonwebtoken";
+import dotenv from 'dotenv';
+import jwt from 'jsonwebtoken';
 
-import dotenv from "dotenv";
 dotenv.config();
 
 const { JWT_SECRET } = process.env;
@@ -13,7 +13,7 @@ const { JWT_SECRET } = process.env;
  */
 export const createAccessToken = ({ userId }) => {
   const token = jwt.sign({ userId }, JWT_SECRET, {
-    expiresIn: "1h",
+    expiresIn: '1h',
   });
   // return `Bearer ${token}`;
   return `${token}`;
@@ -21,7 +21,7 @@ export const createAccessToken = ({ userId }) => {
 
 export const createTestToken = ({ userId }) => {
   const token = jwt.sign({ userId }, JWT_SECRET, {
-    expiresIn: "1y",
+    expiresIn: '1y',
   });
   return `Bearer ${token}`;
 };

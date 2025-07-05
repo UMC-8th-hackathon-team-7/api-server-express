@@ -1,12 +1,16 @@
-import { Router } from "express";
-import testRouter from "./test.router.js"; // Importing the test router
-import profileRouter from "./profile.router.js";
+import { Router } from 'express';
+
+// Importing the test router
+import authRouter from './auth.router.js';
+import testRouter from './test.router.js';
+
+// Importing the auth router
 
 const routers = Router();
 
-routers.all("/ping", (req, res) => res.status(200).send("Pong!"));
+routers.all('/ping', (req, res) => res.status(200).send('Pong!'));
 
-routers.use("/test", testRouter)
-routers.use("/profile", profileRouter)
+routers.use('/test', testRouter);
+routers.use('/auth', authRouter);
 
 export default routers;

@@ -23,7 +23,7 @@ throw new SampleError("그냥 냈음", { data1: "sample data 1", data2: "sample 
  */
 export class SampleError extends CustomError {
   constructor(reason, data = null) {
-    super(reason, "SAMPLE_ERROR", 500, data);
+    super(reason, 'SAMPLE_ERROR', 500, data);
   }
 }
 
@@ -32,7 +32,7 @@ export class SampleError extends CustomError {
  */
 export class InvalidInputError extends CustomError {
   constructor(reason, data = null) {
-    super(reason, "INVALID_INPUT", 400, data);
+    super(reason, 'INVALID_INPUT', 400, data);
   }
 }
 
@@ -41,7 +41,7 @@ export class InvalidInputError extends CustomError {
  */
 export class AlreadyExistsError extends CustomError {
   constructor(reason, data = null) {
-    super(reason, "ALREADY_EXISTS", 409, data);
+    super(reason, 'ALREADY_EXISTS', 409, data);
   }
 }
 
@@ -50,7 +50,7 @@ export class AlreadyExistsError extends CustomError {
  */
 export class NotExistsError extends CustomError {
   constructor(reason, data = null) {
-    super(reason, "NOT_EXISTS", 404, data);
+    super(reason, 'NOT_EXISTS', 404, data);
   }
 }
 
@@ -59,7 +59,7 @@ export class NotExistsError extends CustomError {
  */
 export class NotAllowedError extends CustomError {
   constructor(reason, data = null) {
-    super(reason, "NOT_ALLOWED", 403, data);
+    super(reason, 'NOT_ALLOWED', 403, data);
   }
 }
 
@@ -68,7 +68,7 @@ export class NotAllowedError extends CustomError {
  */
 export class UnauthorizedError extends CustomError {
   constructor(reason, data = null) {
-    super(reason, "UNAUTHORIZED", 401, data);
+    super(reason, 'UNAUTHORIZED', 401, data);
   }
 }
 
@@ -77,7 +77,7 @@ export class UnauthorizedError extends CustomError {
  */
 export class TokenError extends CustomError {
   constructor(reason, data = null) {
-    super(reason, "CHECK_JWT_TOKEN", 401, data);
+    super(reason, 'CHECK_JWT_TOKEN', 401, data);
   }
 }
 
@@ -86,7 +86,7 @@ export class TokenError extends CustomError {
  */
 export class AjvError extends CustomError {
   constructor(reason, data = null) {
-    super(reason, "AJV_INVALID_INPUT", 400, data);
+    super(reason, 'AJV_INVALID_INPUT', 400, data);
   }
 }
 
@@ -95,7 +95,7 @@ export class AjvError extends CustomError {
  */
 export class UnknownError extends CustomError {
   constructor(reason, data = null) {
-    super(reason, "UNKNOWN_ERROR", 500, data);
+    super(reason, 'UNKNOWN_ERROR', 500, data);
   }
 }
 
@@ -104,7 +104,7 @@ export class UnknownError extends CustomError {
  */
 export class TimeOutError extends CustomError {
   constructor(reason, data = null) {
-    super(reason, "SESSION_TIMEOUT", 400, data);
+    super(reason, 'SESSION_TIMEOUT', 400, data);
   }
 }
 /**
@@ -112,7 +112,7 @@ export class TimeOutError extends CustomError {
  */
 export class TooManyRequest extends CustomError {
   constructor(reason, data = null) {
-    super(reason, "TOO_MANY_ATTEMPTS", 429, data);
+    super(reason, 'TOO_MANY_ATTEMPTS', 429, data);
   }
 }
 /**
@@ -120,7 +120,7 @@ export class TooManyRequest extends CustomError {
  */
 export class InvalidCodeError extends CustomError {
   constructor(reason, data = null) {
-    super(reason, "INVALID_CODE", 400, data);
+    super(reason, 'INVALID_CODE', 400, data);
   }
 }
 /**
@@ -128,7 +128,7 @@ export class InvalidCodeError extends CustomError {
  */
 export class CipherError extends CustomError {
   constructor(reason, data = null) {
-    super(reason, "CIPHER_ERROR", 503, data);
+    super(reason, 'CIPHER_ERROR', 503, data);
   }
 }
 
@@ -137,7 +137,7 @@ export class CipherError extends CustomError {
  */
 export class MulterError extends CustomError {
   constructor(reason, data = null) {
-    super(reason, "MULTER_ERROR", 503, data);
+    super(reason, 'MULTER_ERROR', 503, data);
   }
 }
 
@@ -146,7 +146,7 @@ export class MulterError extends CustomError {
  */
 export class RestrictedUserError extends CustomError {
   constructor(reason, data = null) {
-    super(reason, "USER_RESTRICTED", 403, data);
+    super(reason, 'USER_RESTRICTED', 403, data);
   }
 }
 
@@ -155,7 +155,7 @@ export class RestrictedUserError extends CustomError {
  */
 export class UserStatusError extends CustomError {
   constructor(reason, data = null) {
-    super(reason, "DORMANT_OR_TERMINATED", 403, data);
+    super(reason, 'DORMANT_OR_TERMINATED', 403, data);
   }
 }
 
@@ -164,7 +164,7 @@ export class UserStatusError extends CustomError {
  */
 export class NotVerifiedError extends CustomError {
   constructor(reason, data = null) {
-    super(reason, "NOT_VERIFIED", 401, data);
+    super(reason, 'NOT_VERIFIED', 401, data);
   }
 }
 
@@ -173,7 +173,7 @@ export class NotVerifiedError extends CustomError {
  */
 export class InvalidQueryError extends CustomError {
   constructor(reason, data = null) {
-    super(reason, "INVALID_QUERY", 400, data);
+    super(reason, 'INVALID_QUERY', 400, data);
   }
 }
 
@@ -182,7 +182,7 @@ export class InvalidQueryError extends CustomError {
  */
 export class InvalidContentTypeError extends CustomError {
   constructor(reason, data = null) {
-    super(reason, "INVALID_CONTENT_TYPE", 415, data);
+    super(reason, 'INVALID_CONTENT_TYPE', 415, data);
   }
 }
 
@@ -191,6 +191,6 @@ export class InvalidContentTypeError extends CustomError {
  */
 export class LackPermissionError extends CustomError {
   constructor(reason, data = null) {
-    super(reason, "LACK_PERMISSION", 403, data);
+    super(reason, 'LACK_PERMISSION', 403, data);
   }
 }
