@@ -1,5 +1,5 @@
 import prisma from '../prisma/db.js';
-import { changeDateStringToISO, getUserByPhoneNumber, registerUserService } from '../services/auth.service.js';
+import { changeDateStringToISO, getAllDisabledTypes, getUserByPhoneNumber, registerUserService } from '../services/auth.service.js';
 import { createAccessToken } from '../utils/create.jwt.tokens.js';
 import { InvalidInputError } from '../utils/errors/errors.js';
 
@@ -9,15 +9,37 @@ export const registerController = async (req, res, next) => {
     const { profileImage, phoneNumber, password, isDisabled, name, birthdate, residenceArea } =
       req.body;
 
-    await registerUserService({
-      profileImage,
-      phoneNumber,
-      password,
-      isDisabled,
-      name,
-      birthdate,
-      residenceArea,
-    });
+    if (isDisabled) {
+      const { assistantId, disabledTypeId, disabilityLevel, description } = req.body;
+      if (!assistantId || !disabledTypeId || !disabilityLevel) {
+        throw new InvalidInputError('장애인 등록을 위해 필요한 정보를 모두 입력해주세요.');
+      }
+      await registerUserService({
+        profileImage,
+        phoneNumber,
+        password,
+        isDisabled,
+        name,
+        birthdate,
+        residenceArea,
+      }, {
+        assistantId,
+        disabledTypeId,
+        disabilityLevel,
+        description,
+      });
+    } else {
+      await registerUserService({
+        profileImage,
+        phoneNumber,
+        password,
+        isDisabled,
+        name,
+        birthdate,
+        residenceArea,
+      });
+    }
+
 
     return res.status(201).success({
       message: '회원가입이 완료되었습니다.',
@@ -55,3 +77,17 @@ export const loginController = async (req, res, next) => {
     next(error);
   }
 };
+
+// disabled type를 받는 api
+export const getDisabledTypesController = async (req, res, next) => {
+  try {
+    const disabledTypes = await getAllDisabledTypes();
+    return res.success({
+      disabledTypes,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+// 
