@@ -49,6 +49,7 @@ export const loginController = async (req, res, next) => {
     return res.success({
       message: '로그인에 성공하였습니다.',
       accessToken: createAccessToken({ userId: user.userId }),
+      userId: user.userId,
     });
   } catch (error) {
     next(error);
