@@ -64,7 +64,7 @@ export const getRelatedDisabledList = async (userId) => {
 };
 
 export const addMatching = async (data) => {
-  const { title, categoryId, place, description, status, authorId, assistedUserId } = data;
+  const { title, categoryId, place, description, status, authorId, assistedUserId, assistDatetime } = data;
   const matching = await prisma.matching.create({
     data: {
       title,
@@ -74,6 +74,7 @@ export const addMatching = async (data) => {
       status: 'pending',
       authorId,
       assistedUserId,
+      assistDatetime: assistDatetime || new Date(), // 현재 시간을 assistDatetime으로 설정
     },
   });
 
@@ -81,8 +82,10 @@ export const addMatching = async (data) => {
 };
 
 export const listMatching = async (categoryId) => {
+  const whereClause = categoryId ? { categoryId: categoryId } : {};
+
   const list = await prisma.matching.findMany({
-    where: { categoryId: categoryId },
+    where: whereClause,
     select: {
       title: true,
       place: true,
