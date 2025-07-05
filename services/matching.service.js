@@ -99,6 +99,24 @@ export const listMatching = async (categoryId) => {
   return list;
 };
 
+export const getAuthorAndAssistedUserIdForSocket = async (matchingId) => {
+  const matching = await prisma.matching.findUnique({
+    where: { matchingId },
+    select: {
+      authorId: true,
+      assistedUserId: true,
+    },
+  });
+
+  if (!matching) {
+    return null;
+  }
+
+  return {
+    authorId: matching.authorId,
+    assistedUserId: matching.assistedUserId,
+  };
+};
 
 function getAge(birthdate) {
   const today = new Date();
@@ -141,7 +159,7 @@ export const getMatchingDetail = async (matchingId) => {
     name: author.name,
     age: getAge(author.birthdate),
     residenceArea: author.residenceArea,
-    totalHelpTime: 0, 
+    totalHelpTime: 0,
   };
 
   // 장애인 정보 구성

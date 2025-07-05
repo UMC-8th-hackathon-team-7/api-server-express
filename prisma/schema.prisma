@@ -27,7 +27,7 @@ model chat {
 model disabledProfile {
   userId                                  Int        @id @map("user_id")
   assistantId                             Int?       @map("assistant_id")
-  disabledTypeId                          Int        @map("disabed_type_id")
+  disabledTypeId                          Int        @map("disabled_type_id")
   disabilityLevel                         Int           @map("disability_level")
   description                             String?       @db.VarChar(500)
   createdAt                               DateTime      @default(now()) @db.Timestamp(6) @map("created_at")
@@ -64,6 +64,8 @@ model matching {
   assistedUserId                      Int            @map("assisted_user_id")
   createdAt                           DateTime      @default(now()) @db.Timestamp(6) @map("created_at")
   updatedAt                           DateTime      @default(now()) @db.Timestamp(6) @map("updated_at")
+  assistDatetime                      DateTime      @db.Timestamp(6) @map("assist_datetime")
+  assistedTime                        Int?            @map("assisted_time")
   chat                                chat[]
   matchingCategory                    matchingCategory @relation(fields: [categoryId], references: [categoryId], onDelete: NoAction, onUpdate: NoAction, map: "matchingMatchingCategoryCategoryIdFk")
   userMatchingAuthorIdToUser          user              @relation("matching_author_idTouser", fields: [authorId], references: [userId], onDelete: NoAction, onUpdate: NoAction, map: "matchingUserUserIdFk")
@@ -96,6 +98,7 @@ model user {
   residenceArea                                       String             @db.VarChar(50) @map("residence_area")
   createdAt                                           DateTime           @default(now()) @db.DateTime(6) @map("created_at")
   updatedAt                                           DateTime           @default(now()) @db.DateTime(6) @map("updated_at")
+  totalAssistedTime                                   Int                @default(0) @map("total_assisted_time")
   chatChatSenderIdToUser                              chat[]             @relation("chat_sender_idTouser")
   chatChatReceiverIdToUser                            chat[]             @relation("chat_receiver_idTouser")
   disabledProfileDisabledProfileUserIdToUser          disabledProfile?   @relation("disabled_profile_user_idTouser")
