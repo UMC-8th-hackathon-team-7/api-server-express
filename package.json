@@ -23,6 +23,7 @@
   "homepage": "https://github.com/UMC-8th-hackathon-team-7/api-server-express#readme",
   "description": "",
   "devDependencies": {
+    "@trivago/prettier-plugin-sort-imports": "^5.2.2",
     "nodemon": "^3.1.7",
     "prettier": "^3.6.2",
     "prisma": "^6.11.1"
