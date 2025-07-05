@@ -9,10 +9,6 @@ import cookieParser from "cookie-parser";
 import { v4 as uuidv4 } from "uuid";
 import http from "http";
 
-dotenv.config();
-
-const PORT = process.env.PORT;
-
 // Router import , /routes/index.js에서 Router들을 1차적으로 모아서 export 합니다.
 import routers from "./routes/routes.index.js";
 import path from "path";
@@ -24,6 +20,9 @@ import { dirname } from "path";
 // Socket.io Router는 이 주석 아래에 import 해주시면 됩니다.
 // ex) const exampleSocketRouter = require("./routes/example.socket.router"); // commonJS
 // ex) import exampleSocketRouter from "./routes/example.socket.router"; // ES6
+dotenv.config();
+
+const PORT = process.env.SERVER_PORT;
 
 // ** 중요 ** 미들웨어 순서를 변경할 때는 신경써서 작업해 주세요.
 const app = express();
