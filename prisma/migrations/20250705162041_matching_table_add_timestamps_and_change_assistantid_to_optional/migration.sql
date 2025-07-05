@@ -1,0 +1,6 @@
+-- AlterTable
+ALTER TABLE `disabled_profile` MODIFY `assistant_id` INTEGER NULL;
+
+-- AlterTable
+ALTER TABLE `matching` ADD COLUMN `created_at` TIMESTAMP(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
+    ADD COLUMN `updated_at` TIMESTAMP(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6);

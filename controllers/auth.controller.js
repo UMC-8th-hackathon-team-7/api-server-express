@@ -11,7 +11,7 @@ export const registerController = async (req, res, next) => {
 
     if (isDisabled) {
       const { assistantId, disabledTypeId, disabilityLevel, description } = req.body;
-      if (!assistantId || !disabledTypeId || !disabilityLevel) {
+      if (!disabledTypeId || !disabilityLevel) {
         throw new InvalidInputError('장애인 등록을 위해 필요한 정보를 모두 입력해주세요.');
       }
       await registerUserService({
@@ -90,4 +90,20 @@ export const getDisabledTypesController = async (req, res, next) => {
   }
 };
 
-// 
+// phone number를 기준으로 userId 반환
+export const getUserIdByPhoneNumberController = async (req, res, next) => {
+  try {
+    const { phoneNumber } = req.query;
+    const user = await getUserByPhoneNumber(phoneNumber);
+
+    if (!user) {
+      throw new InvalidInputError('해당 전화번호로 등록된 사용자가 없습니다.');
+    }
+
+    return res.success({
+      userId: user.userId,
+    });
+  } catch (error) {
+    next(error);
+  }
+};

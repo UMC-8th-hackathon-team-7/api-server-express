@@ -2,14 +2,17 @@ import prisma from '../prisma/db.js';
 import { AlreadyExistsError } from '../utils/errors/errors.js';
 
 export const registerUserService = async (nonDisabledData, disabledData = null) => {
+  let userId;
   try {
-    await prisma.user.create({
+    const user = await prisma.user.create({
       data: nonDisabledData,
     });
+    userId = user.userId;
     if (nonDisabledData.isDisabled) {
-      await prisma.disabledUser.create({
+      await prisma.disabledProfile.create({
         data: {
-          ...disabledData
+          ...disabledData,
+          userId
         },
       });
     }
