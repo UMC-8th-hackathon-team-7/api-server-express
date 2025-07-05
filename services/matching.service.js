@@ -96,3 +96,22 @@ export const listMatching = async (categoryId) => {
 
   return list;
 };
+
+export const getAuthorAndAssistedUserIdForSocket = async (matchingId) => {
+  const matching = await prisma.matching.findUnique({
+    where: { matchingId },
+    select: {
+      authorId: true,
+      assistedUserId: true,
+    },
+  });
+
+  if (!matching) {
+    return null;
+  }
+
+  return {
+    authorId: matching.authorId,
+    assistedUserId: matching.assistedUserId,
+  };
+};
