@@ -11,7 +11,7 @@ const routers = Router();
 
 routers.all('/ping', (req, res) => res.status(200).send('Pong!'));
 
-routers.use("/test", testRouter)
+routers.use('/test', testRouter);
 routers.use('/auth', authRouter);
 routers.use("/profile", profileRouter)
 
