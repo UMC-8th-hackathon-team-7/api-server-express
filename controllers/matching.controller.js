@@ -6,6 +6,7 @@ import {
   getMatchingDetail,
   getRelatedDisabledList,
   listMatching,
+  modifyMatching,
   modifyStatus,
 } from '../services/matching.service.js';
 import { InvalidInputError } from '../utils/errors/errors.js';
@@ -131,6 +132,33 @@ export const handleModifyStatus = async (req, res, next) => {
     const status = req.body.status;
     const matchingId = parseInt(req.params.matchingId, 10);
     const matching = await modifyStatus(matchingId, status);
+
+    return res.status(StatusCodes.OK).success(matching);
+  } catch (error) {
+    next(error);
+  }
+};
+
+// 도움 요청 수정
+export const handleModifyMatching = async (req, res, next) => {
+  try {
+    const authorId = req?.user?.userId;
+
+    if (!authorId) {
+      throw new InvalidInputError('userId가 올바르지 않습니다.');
+    }
+
+    const { title, categoryId, description, place, 시작일시, 종료일시 } = req.body;
+    const matchingId = parseInt(req.params.matchingId, 10);
+    const data = {
+      matchingId,
+      title,
+      categoryId,
+      description,
+      place,
+    };
+
+    const matching = await modifyMatching(data);
 
     return res.status(StatusCodes.OK).success(matching);
   } catch (error) {
