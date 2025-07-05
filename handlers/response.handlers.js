@@ -17,7 +17,11 @@ import { logError } from "./error.logger.js";
 
 export const responseHandler = (req, res, next) => {
   res.success = (success) =>
-    res.json({ resultType: "SUCCESS", error: null, success });
+    res.json({
+      resultType: "SUCCESS",
+      error: null,
+      success: safeJsonValue(success),
+    })
 
   res.error = ({ errorCode = "UNHANDLED_ERROR", reason = null, data = null }) =>
     res.json({
