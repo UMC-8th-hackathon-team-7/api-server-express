@@ -3,7 +3,7 @@ import { NotExistsError } from "../utils/errors/errors.js";
 
 export const getUserProfile = async (userId) => {
   const profile = await prisma.user.findUnique({
-    where: { userId : Number(userId) },
+    where: { userId: Number(userId) },
     include: {
       disabledProfileDisabledProfileUserIdToUser: {
         include: {
@@ -71,4 +71,23 @@ export const updateUser = async (userId, data) => {
 
   delete updatedUser.password;
   return updatedUser;
+};
+
+export const getNondisabledUserProfileForSocket = async (userId) => {
+  const profile = await prisma.user.findUnique({
+    where: { userId },
+    select: {
+      userId: true,
+      name: true,
+      birthdate: true,
+      residenceArea: true,
+      profileImage: true,
+    },
+  });
+
+  if (!profile) {
+    return null;
+  }
+
+  return profile;
 };

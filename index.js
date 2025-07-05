@@ -16,6 +16,8 @@ import { errorHandler, responseHandler } from './handlers/response.handlers.js';
 // Router import , /routes/index.js에서 Router들을 1차적으로 모아서 export 합니다.
 import routers from './routes/routes.index.js';
 import { corsOptions } from './utils/options.js';
+import { Server } from 'socket.io';
+import { chatSocketRouter } from './routes/chat.socket.router.js';
 
 // Socket.io Router는 이 주석 아래에 import 해주시면 됩니다.
 // ex) const exampleSocketRouter = require("./routes/example.socket.router"); // commonJS
@@ -70,12 +72,14 @@ server.listen(PORT, '0.0.0.0', () => {
 
 // 상단에 socket.io import 주석을 해제하고 사용하시면 됩니다.
 
-// const io = new Server(server, {
-//   cors: corsOptions,
-//   // CORS option은 HTTP 서버와 공유합니다.
-//   // 따로 설정하시려면 다시 작성하시면 됩니다.
-//   cookie: true,
-// });
+const io = new Server(server, {
+  cors: corsOptions,
+  // CORS option은 HTTP 서버와 공유합니다.
+  // 따로 설정하시려면 다시 작성하시면 됩니다.
+  cookie: true,
+});
+
+chatSocketRouter(io);
 
 // 하단에 Socket.io Router를 추가하면 됩니다.
 // ex)
