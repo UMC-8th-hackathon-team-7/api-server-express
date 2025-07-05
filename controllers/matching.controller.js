@@ -71,13 +71,10 @@ export const handleAddMatching = async (req, res, next) => {
 // 도움 전체 보기
 export const handlelistMatching = async (req, res, next) => {
   try {
-    const authorId = req?.user?.userId;
-
-    if (!authorId) {
-      throw new InvalidInputError('userId가 올바르지 않습니다.');
+    let categoryId = req.query?.category;
+    if (categoryId) {
+      categoryId = parseInt(categoryId, 10);
     }
-
-    const categoryId = parseInt(req.query.category, 10);
 
     const list = await listMatching(categoryId);
 
