@@ -98,6 +98,7 @@ model user {
   residenceArea                                       String             @db.VarChar(50) @map("residence_area")
   createdAt                                           DateTime           @default(now()) @db.DateTime(6) @map("created_at")
   updatedAt                                           DateTime           @default(now()) @db.DateTime(6) @map("updated_at")
+  totalAssistedTime                                   Int                @default(0) @map("total_assisted_time")
   chatChatSenderIdToUser                              chat[]             @relation("chat_sender_idTouser")
   chatChatReceiverIdToUser                            chat[]             @relation("chat_receiver_idTouser")
   disabledProfileDisabledProfileUserIdToUser          disabledProfile?   @relation("disabled_profile_user_idTouser")
