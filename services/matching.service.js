@@ -165,6 +165,7 @@ export const getMatchingDetail = async (matchingId) => {
     protector: protectorProfile,
     assistedUser: assistedUserProfile,
   };
+}
 
 export const deleteMatching = async (matchingId) => {
   const matching = await prisma.matching.delete({
