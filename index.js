@@ -14,7 +14,7 @@ dotenv.config();
 const PORT = process.env.PORT;
 
 // Router import , /routes/index.js에서 Router들을 1차적으로 모아서 export 합니다.
-import routers from "./routes/index.js";
+import routers from "./routes/routes.index.js";
 import path from "path";
 import { errorHandler, responseHandler } from "./handlers/response.handlers.js";
 import dotenv from "dotenv";
