@@ -28,7 +28,7 @@ jobs:
             StrictHostKeyChecking no
           END
 
-      - name: checkout 코드를 복사
+      - name: checkout 코드 복사
         run: |
           ssh ${{ secrets.SSH_HOST_NAME }} 'sudo mkdir -p /opt/app'
           ssh ${{ secrets.SSH_HOST_NAME }} 'sudo chown ubuntu:ubuntu /opt/app'
