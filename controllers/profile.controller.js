@@ -32,7 +32,9 @@ export const handleUpdateMyProfile = async (req, res, next) => {
     const userId = req?.user?.userId;
     
     const updated = await updateUser(userId, req.body);
-    res.status(StatusCodes.OK).success(updated);
+    const profile = await getUserProfile(userId);
+
+    res.status(StatusCodes.OK).success(profile);
   } catch (error) {
     next(error);
   }
