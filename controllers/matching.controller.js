@@ -3,10 +3,10 @@ import { StatusCodes } from 'http-status-codes';
 import {
   addMatching,
   deleteMatching,
+  getMatchingDetail,
   getRelatedDisabledList,
   listMatching,
   modifyStatus,
-  getMatchingDetail,
 } from '../services/matching.service.js';
 import { InvalidInputError } from '../utils/errors/errors.js';
 
@@ -86,18 +86,16 @@ export const handlelistMatching = async (req, res, next) => {
   }
 };
 
-
 export const handleGetMatchingDetail = async (req, res, next) => {
-    try{
-        const matchingId = Number(req.params.matchingId)
+  try {
+    const matchingId = Number(req.params.matchingId);
 
-        const detail= await getMatchingDetail(matchingId);
+    const detail = await getMatchingDetail(matchingId);
 
-        res.status(StatusCodes.OK).success(detail);
-    } catch(error) {
-        next(error)
-    }
-    
+    res.status(StatusCodes.OK).success(detail);
+  } catch (error) {
+    next(error);
+  }
 };
 
 // 도움 요청 삭제
@@ -130,8 +128,9 @@ export const handleModifyStatus = async (req, res, next) => {
       throw new InvalidInputError('userId가 올바르지 않습니다.');
     }
 
+    const status = req.body.status;
     const matchingId = parseInt(req.params.matchingId, 10);
-    const matching = await modifyStatus(matchingId, req.query.status);
+    const matching = await modifyStatus(matchingId, status);
 
     return res.status(StatusCodes.OK).success(matching);
   } catch (error) {
