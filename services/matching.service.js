@@ -51,7 +51,8 @@ export const getRelatedDisabledList = async (userId) => {
         name: user.name,
         age: calculateAge(user.birthdate),
         residenceArea: user.residenceArea,
-        disabledTypeId: user.disabledProfileDisabledProfileUserIdToUser?.disabledType?.disabledTypeId,
+        disabledTypeId:
+          user.disabledProfileDisabledProfileUserIdToUser?.disabledType?.disabledTypeId,
         disabilityLevel: user.disabledProfileDisabledProfileUserIdToUser?.disabilityLevel,
         description: user.disabledProfileDisabledProfileUserIdToUser?.description,
       });
@@ -95,4 +96,12 @@ export const listMatching = async (categoryId) => {
   });
 
   return list;
+};
+
+export const deleteMatching = async (matchingId) => {
+  const matching = await prisma.matching.delete({
+    where: { matchingId: matchingId },
+  });
+
+  return matching;
 };
