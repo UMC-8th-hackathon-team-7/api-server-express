@@ -27,6 +27,8 @@ export const getUserProfile = async (userId) => {
       type: d.disabledType.name,
       level: d.disabilityLevel,
       description: d.description,
+      disabledTypeId: d.disabledTypeId,
+      assistantId: d.assistantId,
     };
   }
 
