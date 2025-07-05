@@ -9,7 +9,7 @@
     "eslint": "eslint --fix '**/*.{js,ts,jsx,tsx}'",
     "format:check": "prettier --check '**/*.{js,ts,jsx,tsx,json,yaml,md,css}'",
     "format": "prettier --write '**/*.{js,ts,jsx,tsx,json,yaml,md,css}'",
-    "dev": "nodemon index.js --host 0.0.0.0"
+    "dev": "nodemon -e js,json,prisma --exec \"prisma generate && node index.js\""
   },
   "repository": {
     "type": "git",
