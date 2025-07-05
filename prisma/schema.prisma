@@ -8,96 +8,97 @@ datasource db {
 }
 
 model chat {
-  chat_id                     BigInt   @id @default(autoincrement())
-  matching_id                 BigInt
-  sender_id                   BigInt
-  receiver_id                 BigInt
-  message                     String   @db.VarChar(100)
-  created_at                  DateTime @default(now()) @db.Timestamp(6)
-  updated_at                  DateTime @default(now()) @db.Timestamp(6)
-  matching                    matching @relation(fields: [matching_id], references: [matching_id], onDelete: NoAction, onUpdate: NoAction, map: "chat_matching_matching_id_fk")
-  user_chat_sender_idTouser   user     @relation("chat_sender_idTouser", fields: [sender_id], references: [user_id], onDelete: NoAction, onUpdate: NoAction, map: "chat_user_user_id_fk")
-  user_chat_receiver_idTouser user     @relation("chat_receiver_idTouser", fields: [receiver_id], references: [user_id], onDelete: NoAction, onUpdate: NoAction, map: "chat_user_user_id_fk_2")
+  chatId                   BigInt   @id @default(autoincrement()) @map("chat_id")
+  matchingId               BigInt   @map("matching_id")
+  senderId                 BigInt   @map("sender_id")
+  receiverId               BigInt   @map("receiver_id")
+  message                  String   @db.VarChar(100)
+  createdAt                DateTime @default(now()) @db.Timestamp(6) @map("created_at")
+  updatedAt                DateTime @default(now()) @db.Timestamp(6) @map("updated_at")
+  matching                 matching @relation(fields: [matchingId], references: [matchingId], onDelete: NoAction, onUpdate: NoAction, map: "chatMatchingMatchingIdFk")
+  userChatSenderIdToUser   user     @relation("chat_sender_idTouser", fields: [senderId], references: [userId], onDelete: NoAction, onUpdate: NoAction, map: "chatUserUserIdFk")
+  userChatReceiverIdToUser user     @relation("chat_receiver_idTouser", fields: [receiverId], references: [userId], onDelete: NoAction, onUpdate: NoAction, map: "chatUserUserIdFk2")
 
-  @@index([matching_id], map: "chat_matching_matching_id_fk")
-  @@index([sender_id], map: "chat_user_user_id_fk")
-  @@index([receiver_id], map: "chat_user_user_id_fk_2")
+  @@index([matchingId], map: "chatMatchingMatchingIdFk")
+  @@index([senderId], map: "chatUserUserIdFk")
+  @@index([receiverId], map: "chatUserUserIdFk2")
 }
 
-model disabled_profile {
-  user_id                                  BigInt        @id
-  assistant_id                             BigInt
-  disabed_type_id                          BigInt
-  disability_level                         Int
-  description                              String?       @db.VarChar(500)
-  created_at                               DateTime      @default(now()) @db.Timestamp(6)
-  updated_at                               DateTime      @default(now()) @db.Timestamp(6)
-  disabled_type                            disabled_type @relation(fields: [disabed_type_id], references: [disabled_type_id], onDelete: NoAction, onUpdate: NoAction, map: "disabled_profile_disabled_type_disabled_type_id_fk")
-  user_disabled_profile_user_idTouser      user          @relation("disabled_profile_user_idTouser", fields: [user_id], references: [user_id], onDelete: NoAction, onUpdate: NoAction, map: "disabled_profile_user_user_id_fk")
-  user_disabled_profile_assistant_idTouser user          @relation("disabled_profile_assistant_idTouser", fields: [assistant_id], references: [user_id], onDelete: NoAction, onUpdate: NoAction, map: "disabled_profile_user_user_id_fk_2")
+model disabledProfile {
+  userId                                  BigInt        @id @map("user_id")
+  assistantId                             BigInt        @map("assistant_id")
+  disabledTypeId                          BigInt        @map("disabed_type_id")
+  disabilityLevel                         Int           @map("disability_level")
+  description                             String?       @db.VarChar(500)
+  createdAt                               DateTime      @default(now()) @db.Timestamp(6) @map("created_at")
+  updatedAt                               DateTime      @default(now()) @db.Timestamp(6) @map("updated_at")
+  disabledType                            disabledType  @relation(fields: [disabledTypeId], references: [disabledTypeId], onDelete: NoAction, onUpdate: NoAction, map: "disabledProfileDisabledTypeDisabledTypeIdFk")
+  userDisabledProfileUserIdToUser         user          @relation("disabled_profile_user_idTouser", fields: [userId], references: [userId], onDelete: NoAction, onUpdate: NoAction, map: "disabledProfileUserUserIdFk")
+  userDisabledProfileAssistantIdToUser    user          @relation("disabled_profile_assistant_idTouser", fields: [assistantId], references: [userId], onDelete: NoAction, onUpdate: NoAction, map: "disabledProfileUserUserIdFk2")
 
-  @@index([disabed_type_id], map: "disabled_profile_disabled_type_disabled_type_id_fk")
-  @@index([assistant_id], map: "disabled_profile_user_user_id_fk_2")
+  @@index([disabledTypeId], map: "disabledProfileDisabledTypeDisabledTypeIdFk")
+  @@index([assistantId], map: "disabledProfileUserUserIdFk2")
 }
 
-model disabled_type {
-  disabled_type_id BigInt             @id @default(autoincrement())
+model disabledType {
+  disabledTypeId   BigInt             @id @default(autoincrement()) @map("disabled_type_id")
   name             String             @db.VarChar(100)
   description      String?            @db.VarChar(200)
-  created_at       DateTime           @default(now()) @db.Timestamp(6)
-  updated_at       DateTime           @default(now()) @db.Timestamp(6)
-  disabled_profile disabled_profile[]
+  createdAt        DateTime           @default(now()) @db.Timestamp(6) @map("created_at")
+  updatedAt        DateTime           @default(now()) @db.Timestamp(6) @map("updated_at")
+  disabledProfile  disabledProfile[]
 }
 
 model matching {
-  matching_id                          BigInt            @id @default(autoincrement())
-  title                                String            @db.VarChar(50)
-  category_id                          BigInt
-  place                                String?           @db.VarChar(100)
-  status                               matching_status
-  description                          String?           @db.VarChar(500)
-  author_id                            BigInt
-  assisted_user_id                     BigInt
-  chat                                 chat[]
-  matching_category                    matching_category @relation(fields: [category_id], references: [category_id], onDelete: NoAction, onUpdate: NoAction, map: "matching_matching_category_category_id_fk")
-  user_matching_author_idTouser        user              @relation("matching_author_idTouser", fields: [author_id], references: [user_id], onDelete: NoAction, onUpdate: NoAction, map: "matching_user_user_id_fk")
-  user_matching_assisted_user_idTouser user              @relation("matching_assisted_user_idTouser", fields: [assisted_user_id], references: [user_id], onDelete: NoAction, onUpdate: NoAction, map: "matching_user_user_id_fk_2")
+  matchingId                          BigInt            @id @default(autoincrement()) @map("matching_id")
+  title                               String            @db.VarChar(50)
+  categoryId                          BigInt            @map("category_id")
+  place                               String?           @db.VarChar(100)
+  status                              matchingStatus
+  description                         String?           @db.VarChar(500)
+  authorId                            BigInt            @map("author_id")
+  assistedUserId                      BigInt            @map("assisted_user_id")
+  chat                                chat[]
+  matchingCategory                    matchingCategory @relation(fields: [categoryId], references: [categoryId], onDelete: NoAction, onUpdate: NoAction, map: "matchingMatchingCategoryCategoryIdFk")
+  userMatchingAuthorIdToUser          user              @relation("matching_author_idTouser", fields: [authorId], references: [userId], onDelete: NoAction, onUpdate: NoAction, map: "matchingUserUserIdFk")
+  userMatchingAssistedUserIdToUser    user              @relation("matching_assisted_user_idTouser", fields: [assistedUserId], references: [userId], onDelete: NoAction, onUpdate: NoAction, map: "matchingUserUserIdFk2")
 
-  @@index([category_id], map: "matching_matching_category_category_id_fk")
-  @@index([author_id], map: "matching_user_user_id_fk")
-  @@index([assisted_user_id], map: "matching_user_user_id_fk_2")
+  @@index([categoryId], map: "matchingMatchingCategoryCategoryIdFk")
+  @@index([authorId], map: "matchingUserUserIdFk")
+  @@index([assistedUserId], map: "matchingUserUserIdFk2")
 }
 
-model matching_category {
-  category_id BigInt     @id @default(autoincrement())
-  name        String     @db.VarChar(30)
-  description String?    @db.VarChar(500)
-  created_at  DateTime   @default(now()) @db.Timestamp(6)
-  updated_at  DateTime   @default(now()) @db.Timestamp(6)
-  matching    matching[]
+model matchingCategory {
+  categoryId   BigInt     @id @default(autoincrement()) @map("category_id")
+  name         String     @db.VarChar(30)
+  description  String?    @db.VarChar(500)
+  createdAt    DateTime   @default(now()) @db.Timestamp(6) @map("created_at")
+  updatedAt    DateTime   @default(now()) @db.Timestamp(6) @map("updated_at")
+  matching     matching[]
 }
 
 model user {
-  user_id                                              BigInt             @id @default(autoincrement())
-  profile_image                                        String?            @db.VarChar(1024)
-  phone_number                                         String             @db.VarChar(20)
-  password                                             String             @db.VarChar(50)
-  is_disabled                                          Boolean
-  name                                                 String             @db.VarChar(50)
-  birthdate                                            DateTime           @db.Date
-  residence_area                                       String             @db.VarChar(50)
-  created_at                                           DateTime           @default(now()) @db.DateTime(6)
-  updated_at                                           DateTime           @default(now()) @db.DateTime(6)
-  chat_chat_sender_idTouser                            chat[]             @relation("chat_sender_idTouser")
-  chat_chat_receiver_idTouser                          chat[]             @relation("chat_receiver_idTouser")
-  disabled_profile_disabled_profile_user_idTouser      disabled_profile?  @relation("disabled_profile_user_idTouser")
-  disabled_profile_disabled_profile_assistant_idTouser disabled_profile[] @relation("disabled_profile_assistant_idTouser")
-  matching_matching_author_idTouser                    matching[]         @relation("matching_author_idTouser")
-  matching_matching_assisted_user_idTouser             matching[]         @relation("matching_assisted_user_idTouser")
+  userId                                              BigInt             @id @default(autoincrement()) @map("user_id")
+  profileImage                                        String?            @db.VarChar(1024) @map("profile_image")
+  phoneNumber                                         String             @db.VarChar(20) @map("phone_number")
+  password                                            String             @db.VarChar(50)
+  isDisabled                                          Boolean            @map("is_disabled")
+  name                                                String             @db.VarChar(50)
+  birthdate                                           DateTime           @db.Date
+  residenceArea                                       String             @db.VarChar(50) @map("residence_area")
+  createdAt                                           DateTime           @default(now()) @db.DateTime(6) @map("created_at")
+  updatedAt                                           DateTime           @default(now()) @db.DateTime(6) @map("updated_at")
+  chatChatSenderIdToUser                              chat[]             @relation("chat_sender_idTouser")
+  chatChatReceiverIdToUser                            chat[]             @relation("chat_receiver_idTouser")
+  disabledProfileDisabledProfileUserIdToUser          disabledProfile?   @relation("disabled_profile_user_idTouser")
+  disabledProfileDisabledProfileAssistantIdToUser     disabledProfile[]  @relation("disabled_profile_assistant_idTouser")
+  matchingMatchingAuthorIdToUser                      matching[]         @relation("matching_author_idTouser")
+  matchingMatchingAssistedUserIdToUser                matching[]         @relation("matching_assisted_user_idTouser")
 }
 
-enum matching_status {
+enum matchingStatus {
   pending
   in_progress
   completed
 }
+
