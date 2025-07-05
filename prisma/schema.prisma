@@ -8,10 +8,10 @@ datasource db {
 }
 
 model chat {
-  chatId                   BigInt   @id @default(autoincrement()) @map("chat_id")
-  matchingId               BigInt   @map("matching_id")
-  senderId                 BigInt   @map("sender_id")
-  receiverId               BigInt   @map("receiver_id")
+  chatId                   Int   @id @default(autoincrement()) @map("chat_id")
+  matchingId               Int   @map("matching_id")
+  senderId                 Int   @map("sender_id")
+  receiverId               Int   @map("receiver_id")
   message                  String   @db.VarChar(100)
   createdAt                DateTime @default(now()) @db.Timestamp(6) @map("created_at")
   updatedAt                DateTime @default(now()) @db.Timestamp(6) @map("updated_at")
@@ -25,9 +25,9 @@ model chat {
 }
 
 model disabledProfile {
-  userId                                  BigInt        @id @map("user_id")
-  assistantId                             BigInt        @map("assistant_id")
-  disabledTypeId                          BigInt        @map("disabed_type_id")
+  userId                                  Int        @id @map("user_id")
+  assistantId                             Int        @map("assistant_id")
+  disabledTypeId                          Int        @map("disabed_type_id")
   disabilityLevel                         Int           @map("disability_level")
   description                             String?       @db.VarChar(500)
   createdAt                               DateTime      @default(now()) @db.Timestamp(6) @map("created_at")
@@ -41,7 +41,7 @@ model disabledProfile {
 }
 
 model disabledType {
-  disabledTypeId   BigInt             @id @default(autoincrement()) @map("disabled_type_id")
+  disabledTypeId   Int             @id @default(autoincrement()) @map("disabled_type_id")
   name             String             @db.VarChar(100)
   description      String?            @db.VarChar(200)
   createdAt        DateTime           @default(now()) @db.Timestamp(6) @map("created_at")
@@ -50,14 +50,14 @@ model disabledType {
 }
 
 model matching {
-  matchingId                          BigInt            @id @default(autoincrement()) @map("matching_id")
+  matchingId                          Int            @id @default(autoincrement()) @map("matching_id")
   title                               String            @db.VarChar(50)
-  categoryId                          BigInt            @map("category_id")
+  categoryId                          Int            @map("category_id")
   place                               String?           @db.VarChar(100)
   status                              matchingStatus
   description                         String?           @db.VarChar(500)
-  authorId                            BigInt            @map("author_id")
-  assistedUserId                      BigInt            @map("assisted_user_id")
+  authorId                            Int            @map("author_id")
+  assistedUserId                      Int            @map("assisted_user_id")
   chat                                chat[]
   matchingCategory                    matchingCategory @relation(fields: [categoryId], references: [categoryId], onDelete: NoAction, onUpdate: NoAction, map: "matchingMatchingCategoryCategoryIdFk")
   userMatchingAuthorIdToUser          user              @relation("matching_author_idTouser", fields: [authorId], references: [userId], onDelete: NoAction, onUpdate: NoAction, map: "matchingUserUserIdFk")
@@ -69,7 +69,7 @@ model matching {
 }
 
 model matchingCategory {
-  categoryId   BigInt     @id @default(autoincrement()) @map("category_id")
+  categoryId   Int     @id @default(autoincrement()) @map("category_id")
   name         String     @db.VarChar(30)
   description  String?    @db.VarChar(500)
   createdAt    DateTime   @default(now()) @db.Timestamp(6) @map("created_at")
@@ -78,7 +78,7 @@ model matchingCategory {
 }
 
 model user {
-  userId                                              BigInt             @id @default(autoincrement()) @map("user_id")
+  userId                                              Int             @id @default(autoincrement()) @map("user_id")
   profileImage                                        String?            @db.VarChar(1024) @map("profile_image")
   phoneNumber                                         String             @db.VarChar(20) @map("phone_number")
   password                                            String             @db.VarChar(50)
