@@ -1,6 +1,13 @@
 import { StatusCodes } from 'http-status-codes';
 
-import { addMatching, listMatching, getRelatedDisabledList } from '../services/matching.service.js';
+import {
+  addMatching,
+  deleteMatching,
+  getMatchingDetail,
+  getRelatedDisabledList,
+  listMatching,
+  modifyStatus,
+} from '../services/matching.service.js';
 import { InvalidInputError } from '../utils/errors/errors.js';
 
 export const getRelatedDisabledListController = async (req, res, next) => {
@@ -74,6 +81,58 @@ export const handlelistMatching = async (req, res, next) => {
     const list = await listMatching(categoryId);
 
     return res.status(StatusCodes.OK).success(list);
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const handleGetMatchingDetail = async (req, res, next) => {
+  try {
+    const matchingId = Number(req.params.matchingId);
+
+    const detail = await getMatchingDetail(matchingId);
+
+    res.status(StatusCodes.OK).success(detail);
+  } catch (error) {
+    next(error);
+  }
+};
+
+// 도움 요청 삭제
+export const handleDeleteMatching = async (req, res, next) => {
+  try {
+    const authorId = req?.user?.userId;
+
+    if (!authorId) {
+      throw new InvalidInputError('userId가 올바르지 않습니다.');
+    }
+
+    const matchingId = parseInt(req.params.matchingId, 10);
+
+    console.log(matchingId);
+
+    const matching = await deleteMatching(matchingId);
+
+    return res.status(StatusCodes.OK).success(matching);
+  } catch (error) {
+    next(error);
+  }
+};
+
+// 도움 요청 상태 수정
+export const handleModifyStatus = async (req, res, next) => {
+  try {
+    const authorId = req?.user?.userId;
+
+    if (!authorId) {
+      throw new InvalidInputError('userId가 올바르지 않습니다.');
+    }
+
+    const status = req.body.status;
+    const matchingId = parseInt(req.params.matchingId, 10);
+    const matching = await modifyStatus(matchingId, status);
+
+    return res.status(StatusCodes.OK).success(matching);
   } catch (error) {
     next(error);
   }
