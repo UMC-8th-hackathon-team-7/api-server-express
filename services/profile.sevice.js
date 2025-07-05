@@ -1,8 +1,8 @@
 import prisma from "../prisma/db.js";
 
-export const getMyProfile = async (userId) => {
+export const getUserProfile = async (userId) => {
   const profile = await prisma.user.findUnique({
-    where: { userId },
+    where: { userId : Number(userId) },
     include: {
       disabledProfileDisabledProfileUserIdToUser: {
         include: {
