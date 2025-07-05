@@ -1,6 +1,6 @@
 import { StatusCodes } from 'http-status-codes';
 
-import { addMatching, listMatching } from '../services/matching.service.js';
+import { addMatching, listMatching, getMatchingDetail } from '../services/matching.service.js';
 import { InvalidInputError } from '../utils/errors/errors.js';
 
 // 도움 요청 등록
@@ -48,4 +48,17 @@ export const handlelistMatching = async (req, res, next) => {
   } catch (error) {
     next(error);
   }
+};
+
+export const handleGetMatchingDetail = async (req, res, next) => {
+    try{
+        const matchingId = Number(req.params.matchingId)
+
+        const Detail= await getMatchingDetail(matchingId);
+
+        res.status(StatusCodes.OK).success(Detail);
+    } catch(error) {
+        next(error)
+    }
+    
 };
