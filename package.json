@@ -23,12 +23,14 @@
   "description": "",
   "devDependencies": {
     "nodemon": "^3.1.7",
-    "prettier": "^3.6.2"
+    "prettier": "^3.6.2",
+    "prisma": "^6.11.1"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.717.0",
     "@aws-sdk/client-sns": "^3.716.0",
     "@aws-sdk/credential-provider-sso": "^3.716.0",
+    "@prisma/client": "^6.11.1",
     "axios": "^1.7.7",
     "base-x": "^5.0.0",
     "bcrypt": "^5.1.1",
