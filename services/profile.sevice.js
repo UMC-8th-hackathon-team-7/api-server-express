@@ -35,3 +35,38 @@ export const getUserProfile = async (userId) => {
 
   return profile;
 };
+
+export const updateUser = async (userId, data) => {
+
+  const user = await prisma.user.findUnique({ where: { userId } });
+  if (!user) throw new NotExistsError("사용자를 찾을 수 없습니다.");
+
+  const updatedUser = await prisma.user.update({
+    where: { userId },
+    data: {
+      name: data.name,
+      password: data.password,
+      birthdate: data.birthdate ? new Date(data.birthdate) : undefined,
+      residenceArea: data.residenceArea,
+      profileImage: data.profileImage,
+    },
+  });
+
+  if (user.isDisabled && data.disabledInfo) {
+    const disabledProfile = await prisma.disabledProfile.findUnique({ where: { userId } });
+    if (disabledProfile) {
+      await prisma.disabledProfile.update({
+        where: { userId },
+        data: {
+          disabilityLevel: data.disabledInfo.disabilityLevel,
+          description: data.disabledInfo.description,
+          disabledTypeId: data.disabledInfo.disabledTypeId,
+          assistantId: data.disabledInfo.assistantId,
+        },
+      });
+    }
+  }
+
+  delete updatedUser.password;
+  return updatedUser;
+};
