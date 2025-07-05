@@ -64,7 +64,16 @@ export const getRelatedDisabledList = async (userId) => {
 };
 
 export const addMatching = async (data) => {
-  const { title, categoryId, place, description, status, authorId, assistedUserId, assistDatetime } = data;
+  const {
+    title,
+    categoryId,
+    place,
+    description,
+    status,
+    authorId,
+    assistedUserId,
+    assistDatetime,
+  } = data;
   const matching = await prisma.matching.create({
     data: {
       title,
@@ -120,7 +129,6 @@ export const getAuthorAndAssistedUserIdForSocket = async (matchingId) => {
     assistedUserId: matching.assistedUserId,
   };
 };
-
 
 function getAge(birthdate) {
   const today = new Date();
@@ -217,6 +225,7 @@ export const modifyMatching = async (data) => {
       categoryId: data.categoryId,
       description: data.description,
       place: data.place,
+      updatedAt: new Date(),
     },
   });
 

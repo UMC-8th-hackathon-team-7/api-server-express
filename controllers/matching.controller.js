@@ -145,7 +145,7 @@ export const handleModifyMatching = async (req, res, next) => {
       throw new InvalidInputError('userId가 올바르지 않습니다.');
     }
 
-    const { title, categoryId, description, place, 시작일시, 종료일시 } = req.body;
+    const { title, categoryId, description, place } = req.body;
     const matchingId = parseInt(req.params.matchingId, 10);
     const data = {
       matchingId,
