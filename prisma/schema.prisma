@@ -65,6 +65,7 @@ model matching {
   createdAt                           DateTime      @default(now()) @db.Timestamp(6) @map("created_at")
   updatedAt                           DateTime      @default(now()) @db.Timestamp(6) @map("updated_at")
   assistDatetime                      DateTime      @db.Timestamp(6) @map("assist_datetime")
+  assistedTime                        Int?            @map("assisted_time")
   chat                                chat[]
   matchingCategory                    matchingCategory @relation(fields: [categoryId], references: [categoryId], onDelete: NoAction, onUpdate: NoAction, map: "matchingMatchingCategoryCategoryIdFk")
   userMatchingAuthorIdToUser          user              @relation("matching_author_idTouser", fields: [authorId], references: [userId], onDelete: NoAction, onUpdate: NoAction, map: "matchingUserUserIdFk")
