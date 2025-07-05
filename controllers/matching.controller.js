@@ -1,6 +1,11 @@
 import { StatusCodes } from 'http-status-codes';
 
-import { addMatching, listMatching, getRelatedDisabledList } from '../services/matching.service.js';
+import {
+  addMatching,
+  deleteMatching,
+  getRelatedDisabledList,
+  listMatching,
+} from '../services/matching.service.js';
 import { InvalidInputError } from '../utils/errors/errors.js';
 
 export const getRelatedDisabledListController = async (req, res, next) => {
@@ -74,6 +79,27 @@ export const handlelistMatching = async (req, res, next) => {
     const list = await listMatching(categoryId);
 
     return res.status(StatusCodes.OK).success(list);
+  } catch (error) {
+    next(error);
+  }
+};
+
+// 도움 요청 삭제
+export const handleDeleteMatching = async (req, res, next) => {
+  try {
+    const authorId = req?.user?.userId;
+
+    if (!authorId) {
+      throw new InvalidInputError('userId가 올바르지 않습니다.');
+    }
+
+    const matchingId = parseInt(req.params.matchingId, 10);
+
+    console.log(matchingId);
+
+    const matching = await deleteMatching(matchingId);
+
+    return res.status(StatusCodes.OK).success(matching);
   } catch (error) {
     next(error);
   }
